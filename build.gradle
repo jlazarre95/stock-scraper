@@ -1,0 +1,47 @@
+buildscript {
+    ext {
+        springBootVersion = "1.5.9.RELEASE"
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: "java"
+apply plugin: "eclipse"
+apply plugin: "eclipse"
+apply plugin: "org.springframework.boot"
+
+group 'com.github.jlazarre95'
+version '0.0.1'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile("com.sun.mail:javax.mail")
+    compile("org.springframework.boot:spring-boot-starter-mail")
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.8.10'
+    compile group: 'net.sourceforge.htmlunit', name: 'htmlunit', version: '2.45.0'
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+}
+
+test {
+    useJUnit {
+        excludeCategories "com.github.jlazarre95.stockscrapertesting.categories.RegenerateTestFixtures"
+    }
+}
+
+task regenerateTestFixtures(type: Test) {
+    useJUnit {
+        includeCategories "com.github.jlazarre95.stockscrapertesting.categories.RegenerateTestFixtures"
+    }
+}

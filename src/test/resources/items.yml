@@ -1,0 +1,37 @@
+# RTX 3080s
+- name: RTX 3080 Bundle @ BestBuy
+  url: https://www.bestbuy.com/site/searchpage.jsp?st=rtx+3080&_dyncharset=UTF-8&_dynSessConf=&id=pcat17071&type=page&sc=Global&cp=1&nrp=&sp=&qp=&list=n&af=true&iht=y&usc=All+Categories&ks=960&keys=keys
+  regex: Add to Cart
+  refreshInterval: 5000
+  maxChecks: 3
+
+- name: RTX 3080 Bundle @ Newegg
+  url: https://www.newegg.com/p/pl?d=rtx+3080+combo
+  regex: Add to Cart
+  refreshInterval: 5000
+  maxChecks: 3
+
+# PS5s
+- name: Playstation 5 @ BestBuy
+  url: https://www.bestbuy.com/site/sony-playstation-5-console/6426149.p?skuId=6426149
+  regex: Add to Cart
+  refreshInterval: 5000
+  maxChecks: 3
+
+- name: Playstation 5 (Digital Edition) @ Best Buy
+  url: https://www.bestbuy.com/site/sony-playstation-5-digital-edition-console/6430161.p?skuId=6430161
+  regex: Add to Cart
+  refreshInterval: 5000
+  maxChecks: 3
+
+- name: Playstation 5 @ Walmart
+  url: https://www.walmart.com/ip/PlayStation-5-Console/363472942
+  regex: Add to cart
+  refreshInterval: 5000
+  maxChecks: 3
+
+- name: Playstation 5 (Digital Edition) @ Walmart
+  url: https://www.walmart.com/ip/Sony-PlayStation-5-Digital-Edition/493824815
+  regex: Add to cart
+  refreshInterval: 5000
+  maxChecks: 3

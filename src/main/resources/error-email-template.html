@@ -1,0 +1,23 @@
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<h2>An ERROR occurred while watching for {{item.name}}</h2>
+
+<h3>Item Details</h3>
+<hr>
+<b>Name</b>: {{item.name}}<br/>
+<b>URL</b>: <a href="{{item.url}}">{{item.url}}</a><br/>
+<b>Regex</b>: {{item.regex}}<br/>
+<b>Refresh Interval</b>: {{item.refreshInterval}} ms<br/>
+<b>Email Recipients</b>: Hidden<br/>
+
+<h3>Error Details</h3>
+<hr>
+<p>Will refresh again in {{backoff}} seconds</p>
+<pre>{{error}}</pre>
+
+<p>
+    Sincerely,<br/>
+    Stock Scraper ❤️
+</p>
