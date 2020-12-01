@@ -12,4 +12,5 @@ spring.mail.properties.mail.smtp.timeout: 5000
 spring.mail.properties.mail.smtp.writetimeout: 5000
 
 stockbot.defaultEmailRecipients: ${STOCKBOT_DEFAULT_EMAIL_RECIPIENTS:}
-stockbot.enableErrorAlerts: true
+stockbot.enableInStockAlerts: ${STOCKBOT_ENABLE_IN_STOCK_ALERTS:true}
+stockbot.enableErrorAlerts: ${STOCKBOT_ENABLE_ERROR_ALERTS:true}

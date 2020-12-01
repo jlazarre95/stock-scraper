@@ -31,6 +31,8 @@ public class InStockEmailTemplate {
         parameters.put("item.name", item.getName());
         parameters.put("item.url", item.getUrl());
         parameters.put("item.regex", item.getRegex());
+        parameters.put("item.cssSelector", item.getCssSelector());
+        parameters.put("item.xpath", item.getXpath());
         parameters.put("item.refreshInterval", item.getRefreshInterval());
         parameters.put("item.checkoutUrl", item.getCheckoutUrl() != null ? item.getCheckoutUrl() : item.getUrl());
         String email = emailTemplate;

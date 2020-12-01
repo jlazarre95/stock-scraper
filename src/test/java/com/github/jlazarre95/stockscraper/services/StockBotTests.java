@@ -30,7 +30,7 @@ public class StockBotTests {
     private StockBotProperties stockBotProperties;
 
     @Mock
-    private WebScraper webScraper;
+    private HtmlFetcher htmlFetcher;
 
     @Mock
     private InStockAlerter inStockAlerter;
@@ -46,7 +46,7 @@ public class StockBotTests {
 
     @Test
     public void testWatchBestBuyInStockItem() throws ExecutionException, InterruptedException {
-        when(this.webScraper.scrape("https://bestbuy.com/is")).thenReturn(loadItemFixture("best-buy-in-stock-item.txt"));
+        when(this.htmlFetcher.fetch("https://bestbuy.com/is")).thenReturn(loadItemFixture("best-buy-in-stock-item.txt"));
 
         Item item = new Item()
                 .setUrl("https://bestbuy.com/is")
@@ -62,7 +62,7 @@ public class StockBotTests {
 
     @Test
     public void testWatchBestBuyOutOfStockItem() throws ExecutionException, InterruptedException {
-        when(this.webScraper.scrape("https://bestbuy.com/oos")).thenReturn(loadItemFixture("best-buy-out-of-stock-item.txt"));
+        when(this.htmlFetcher.fetch("https://bestbuy.com/oos")).thenReturn(loadItemFixture("best-buy-out-of-stock-item.txt"));
 
         Item item = new Item()
                 .setUrl("https://bestbuy.com/oos")
@@ -77,7 +77,7 @@ public class StockBotTests {
 
     @Test
     public void testWatchWalmartInStockItem() throws ExecutionException, InterruptedException {
-        when(this.webScraper.scrape("https://walmart.com/is")).thenReturn(loadItemFixture("walmart-in-stock-item.txt"));
+        when(this.htmlFetcher.fetch("https://walmart.com/is")).thenReturn(loadItemFixture("walmart-in-stock-item.txt"));
 
         Item item = new Item()
                 .setUrl("https://walmart.com/is")
@@ -93,7 +93,7 @@ public class StockBotTests {
 
     @Test
     public void testWatchWalmartOutOfStockItem() throws ExecutionException, InterruptedException {
-        when(this.webScraper.scrape("https://walmart.com/oos")).thenReturn(loadItemFixture("walmart-out-of-stock-item.txt"));
+        when(this.htmlFetcher.fetch("https://walmart.com/oos")).thenReturn(loadItemFixture("walmart-out-of-stock-item.txt"));
 
         Item item = new Item()
                 .setUrl("https://walmart.com/oos")
@@ -108,7 +108,7 @@ public class StockBotTests {
 
     @Test
     public void testWatchNeweggInStockItem() throws ExecutionException, InterruptedException {
-        when(this.webScraper.scrape("https://newegg.com/is")).thenReturn(loadItemFixture("newegg-in-stock-item.txt"));
+        when(this.htmlFetcher.fetch("https://newegg.com/is")).thenReturn(loadItemFixture("newegg-in-stock-item.txt"));
 
         Item item = new Item()
                 .setUrl("https://newegg.com/is")
@@ -124,7 +124,7 @@ public class StockBotTests {
 
     @Test
     public void testWatchNeweggOutOfStockItem() throws ExecutionException, InterruptedException {
-        when(this.webScraper.scrape("https://newegg.com/oos")).thenReturn(loadItemFixture("newegg-out-of-stock-item.txt"));
+        when(this.htmlFetcher.fetch("https://newegg.com/oos")).thenReturn(loadItemFixture("newegg-out-of-stock-item.txt"));
 
         Item item = new Item()
                 .setUrl("https://newegg.com/oos")

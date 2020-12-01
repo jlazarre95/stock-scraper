@@ -2,6 +2,7 @@ package com.github.jlazarre95.stockscraper.services;
 
 import com.github.jlazarre95.stockscraper.configuration.StockBotProperties;
 import com.github.jlazarre95.stockscraper.models.Item;
+import com.github.jlazarre95.stockscraper.models.ScrapeOptions;
 import com.github.jlazarre95.stockscraper.utils.ExceptionUtils;
 import com.github.jlazarre95.stockscraper.utils.ExponentialBackoff;
 import org.slf4j.Logger;
@@ -24,14 +25,17 @@ public class StockBot {
 
     private static Logger logger = LoggerFactory.getLogger(StockBot.class);
     private StockBotProperties properties;
-    private WebScraper webScraper;
+    private HtmlFetcher htmlFetcher;
+    private HtmlScraper htmlScraper;
     private InStockAlerter inStockAlerter;
     private ErrorAlerter errorAlerter;
 
     @Autowired
-    public StockBot(StockBotProperties properties, WebScraper webScraper, InStockAlerter inStockAlerter, ErrorAlerter errorAlerter) {
+    public StockBot(StockBotProperties properties, HtmlFetcher htmlFetcher, HtmlScraper htmlScraper,
+                    InStockAlerter inStockAlerter, ErrorAlerter errorAlerter) {
         this.properties = properties;
-        this.webScraper = webScraper;
+        this.htmlFetcher = htmlFetcher;
+        this.htmlScraper = htmlScraper;
         this.inStockAlerter = inStockAlerter;
         this.errorAlerter = errorAlerter;
     }
@@ -65,8 +69,9 @@ public class StockBot {
             exponentialBackoff.resetValue();
             if(foundItem) {
                 logger.info("IN-STOCK ALERT: item {} is in stock!", item);
-                this.inStockAlerter.send(item, this.properties.getDefaultEmailRecipients());
-                //this.openBrowser(item);
+                if(this.properties.isEnableInStockAlerts()) {
+                    this.inStockAlerter.send(item, this.properties.getDefaultEmailRecipients());
+                }
                 if(!lastCheck)
                     this.sleep(this.properties.getInStockCooldown());
             } else {
@@ -75,8 +80,10 @@ public class StockBot {
             }
         } catch(Exception ex) {
             int backoff = (int)exponentialBackoff.getValue();
-            logger.error("Failed watching item {}. Will send alert and back off for {} seconds", item, backoff / 1000);
-            this.errorAlerter.send(item, ExceptionUtils.toString(ex), backoff, this.properties.getDefaultEmailRecipients());
+            logger.error("ERROR ALERT: Failed watching item {}. Will back off for {} seconds", item, backoff / 1000);
+            if(this.properties.isEnableErrorAlerts()) {
+                this.errorAlerter.send(item, ExceptionUtils.toString(ex), backoff, this.properties.getDefaultEmailRecipients());
+            }
             if(!lastCheck)
                 this.sleep(backoff);
         }
@@ -84,10 +91,11 @@ public class StockBot {
     }
 
     private boolean scrapeItemPage(Item item) {
-        String pageText = this.webScraper.scrape(item.getUrl());
-        Pattern pattern = Pattern.compile(item.getRegex());
-        Matcher matcher = pattern.matcher(pageText);
-        return matcher.find();
+        String htmlText = this.htmlFetcher.fetch(item.getUrl());
+        return this.htmlScraper.scrape(htmlText, new ScrapeOptions()
+                .setOriginatingUrl(item.getUrl())
+                .setRegex(item.getRegex())
+                .setCssSelector(item.getCssSelector()));
     }
 
     private void openBrowser(Item item) throws URISyntaxException, IOException {

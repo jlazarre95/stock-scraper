@@ -8,6 +8,8 @@ public class Item {
     private String name;
     private String url;
     private String regex;
+    private String cssSelector;
+    private String xpath;
     private int refreshInterval;
     private String checkoutUrl;
     private List<String> emailRecipients = new ArrayList<>();
@@ -37,6 +39,24 @@ public class Item {
 
     public Item setRegex(String regex) {
         this.regex = regex;
+        return this;
+    }
+
+    public String getCssSelector() {
+        return cssSelector;
+    }
+
+    public Item setCssSelector(String cssSelector) {
+        this.cssSelector = cssSelector;
+        return this;
+    }
+
+    public String getXpath() {
+        return xpath;
+    }
+
+    public Item setXpath(String xpath) {
+        this.xpath = xpath;
         return this;
     }
 
@@ -82,6 +102,8 @@ public class Item {
                 "name='" + name + '\'' +
                 ", url='" + url + '\'' +
                 ", regex='" + regex + '\'' +
+                ", cssSelector='" + cssSelector + '\'' +
+                ", xpath='" + xpath + '\'' +
                 ", refreshInterval=" + refreshInterval +
                 ", checkoutUrl=" + checkoutUrl +
                 ", emailRecipients=" + emailRecipients +

@@ -11,6 +11,7 @@ import java.util.List;
 public class StockBotProperties {
 
     private List<String> defaultEmailRecipients = new ArrayList<>();
+    private boolean enableInStockAlerts = true;
     private boolean enableErrorAlerts = true;
     private int inStockCooldown = 60_000 * 2;
     private String itemRepository = "items.yml";
@@ -21,6 +22,15 @@ public class StockBotProperties {
 
     public StockBotProperties setDefaultEmailRecipients(List<String> defaultEmailRecipients) {
         this.defaultEmailRecipients = defaultEmailRecipients;
+        return this;
+    }
+
+    public boolean isEnableInStockAlerts() {
+        return enableInStockAlerts;
+    }
+
+    public StockBotProperties setEnableInStockAlerts(boolean enableInStockAlerts) {
+        this.enableInStockAlerts = enableInStockAlerts;
         return this;
     }
 
@@ -55,6 +65,7 @@ public class StockBotProperties {
     public String toString() {
         return "(" +
                 "defaultEmailRecipients=" + defaultEmailRecipients +
+                ", enableInStockAlerts=" + enableInStockAlerts +
                 ", enableErrorAlerts=" + enableErrorAlerts +
                 ", inStockCooldown=" + inStockCooldown +
                 ", itemRepository=" + itemRepository +
