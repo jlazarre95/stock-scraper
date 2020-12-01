@@ -82,7 +82,7 @@ public class StockBot {
             int backoff = (int)exponentialBackoff.getValue();
             logger.error("ERROR ALERT: Failed watching item {}. Will back off for {} seconds", item, backoff / 1000);
             if(this.properties.isEnableErrorAlerts()) {
-                this.errorAlerter.send(item, ExceptionUtils.toString(ex), backoff, this.properties.getDefaultEmailRecipients());
+                this.errorAlerter.send(item, ExceptionUtils.toString(ex), backoff / 1000, this.properties.getDefaultEmailRecipients());
             }
             if(!lastCheck)
                 this.sleep(backoff);
